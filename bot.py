@@ -35,7 +35,7 @@ async def ask(interaction: discord.Interaction, question: str):
         response = groq_client.chat.completions.create(
             model="llama-3.3-70b-versatile",
             messages=[
-                {"role": "system", "content": "Tu es un assistant utile et amical sur Discord."},
+                {"role": "system", "content": "Tu es un assistant utile et amical sur Discord. Réponds de manière concise, en moins de 1900 caractères."},
                 {"role": "user", "content": question}
             ]
         )
