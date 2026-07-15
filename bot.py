@@ -13,12 +13,16 @@ groq_client = Groq(api_key=GROQ_API_KEY)
 intents = discord.Intents.default()
 bot = commands.Bot(command_prefix="!", intents=intents)
 
+GUILD_ID = 1397572165230133258  # ← REMPLACE par l'ID de ton serveur
+
 @bot.event
 async def on_ready():
     print(f"✅ Connecté en tant que {bot.user}")
     try:
-        synced = await bot.tree.sync()
-        print(f"✅ {len(synced)} commande(s) slash synchronisée(s)")
+        guild = discord.Object(id=GUILD_ID)
+        bot.tree.copy_global_to(guild=guild)
+        synced = await bot.tree.sync(guild=guild)
+        print(f"✅ {len(synced)} commande(s) synchronisée(s) sur le serveur")
     except Exception as e:
         print(f"❌ Erreur de synchronisation : {e}")
 
